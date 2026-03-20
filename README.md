@@ -1,5 +1,11 @@
 # 上网，我们帮助 
 
+## Doel
+
+Gemaakt als een cybersecurity dienst model met een website voor het onboarden van klanten waar ze de diensten kunnen zien en kiezen. 
+
+---
+
 Een geanimeerde, interactieve cybersecurity-poster gebouwd in puur HTML, CSS en JavaScript. 
 ## Functies
 
@@ -25,6 +31,4 @@ Open `index.html` gewoon in een browser — geen buildstap nodig.
 - Vanilla JavaScript
 - Google Fonts: Noto Serif SC, Noto Sans SC, Share Tech Mono
 
----
 
-Gemaakt als creatieve frontend/design-oefening met een cybersecurity-thema.
