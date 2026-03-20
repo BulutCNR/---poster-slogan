@@ -1,4 +1,4 @@
-# 上网，我们帮助 — Cybersecurity Poster
+# 上网，我们帮助 
 
 Een geanimeerde, interactieve cybersecurity-poster gebouwd in puur HTML, CSS en JavaScript. Geen frameworks, geen dependencies.
 
