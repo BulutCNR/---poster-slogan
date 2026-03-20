@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>网络安全 — Poster Series</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Noto+Serif+SC:wght@900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0d0d0d;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Share Tech Mono', monospace;
+    overflow: hidden;
+  }
+
+  canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  .container {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: #FFC719;
+    opacity: 0.7;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+
+  .title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 64px;
+    font-weight: 900;
+    color: #f7f5f0;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: #555;
+    margin-bottom: 60px;
+    text-transform: uppercase;
+  }
+
+  .cards {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    width: 200px;
+    border: 1px solid #2a2a2a;
+    padding: 28px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .card.light { background: #f7f5f0; }
+  .card.light::before { background: rgba(255,199,25,0.08); }
+  .card.light .card-mode { color: #111; }
+  .card.light .card-label { color: #888; }
+  .card.light .card-bar { background: #111; }
+  .card.light .card-dot { background: #FFC719; }
+
+  .card.dark { background: #111; }
+  .card.dark::before { background: rgba(255,199,25,0.05); }
+  .card.dark .card-mode { color: #f7f5f0; }
+  .card.dark .card-label { color: #444; }
+  .card.dark .card-bar { background: #f7f5f0; }
+  .card.dark .card-dot { background: #FFC719; }
+
+  .card:hover { border-color: #FFC719; transform: translateY(-4px); }
+  .card:hover::before { opacity: 1; }
+
+  .card-preview {
+    width: 100%;
+    height: 110px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(128,128,128,0.15);
+  }
+
+  .card.light .card-preview { background: #f0ede6; }
+  .card.dark  .card-preview { background: #0a0a0a; }
+
+  .preview-char {
+    font-family: 'Noto Serif SC', serif;
+    font-weight: 900;
+    font-size: 80px;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.06;
+    user-select: none;
+  }
+  .card.light .preview-char { color: #111; }
+  .card.dark  .preview-char { color: #fff; }
+
+  .preview-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: #FFC719;
+  }
+
+  .preview-lines {
+    position: absolute;
+    bottom: 10px; left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .preview-line {
+    height: 1px;
+    background: rgba(128,128,128,0.25);
+  }
+
+  .card-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    animation: pdot 2s ease-in-out infinite;
+  }
+  @keyframes pdot { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  .card-mode {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .card-label {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .card-bar {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 2px;
+    width: 0;
+    transition: width 0.3s;
+    opacity: 0.4;
+  }
+  .card:hover .card-bar { width: 100%; }
+
+  .footer {
+    margin-top: 56px;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: #333;
+    text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="container">
+  <div class="label">网络安全服务 · Poster Series</div>
+  <div class="title">上网，我们帮助</div>
+  <div class="subtitle">Select a version</div>
+
+  <div class="cards">
+    <a class="card light" href="poster_light.html">
+      <div class="card-preview">
+        <div class="preview-char">安</div>
+        <div class="preview-bar"></div>
+        <div class="preview-lines">
+          <div class="preview-line" style="width:60px"></div>
+          <div class="preview-line" style="width:40px"></div>
+          <div class="preview-line" style="width:50px"></div>
+        </div>
+      </div>
+      <div class="card-dot"></div>
+      <div class="card-mode">Light</div>
+      <div class="card-label">明亮版本</div>
+      <div class="card-bar"></div>
+    </a>
+
+    <a class="card dark" href="poster_dark.html">
+      <div class="card-preview">
+        <div class="preview-char">安</div>
+        <div class="preview-bar"></div>
+        <div class="preview-lines">
+          <div class="preview-line" style="width:60px"></div>
+          <div class="preview-line" style="width:40px"></div>
+          <div class="preview-line" style="width:50px"></div>
+        </div>
+      </div>
+      <div class="card-dot"></div>
+      <div class="card-mode">Dark</div>
+      <div class="card-label">暗色版本</div>
+      <div class="card-bar"></div>
+    </a>
+  </div>
+
+  <div class="footer">© 2026 · 网络安全 · voor MKB</div>
+</div>
+
+<script>
+  const canvas = document.getElementById('bg');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const nodes = Array.from({length: 30}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    r: Math.random() * 2 + 1
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i+1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const d = Math.sqrt(dx*dx+dy*dy);
+        if (d < 180) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(255,199,25,${0.08*(1-d/180)})`;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.stroke();
+        }
+      }
+      ctx.beginPath();
+      ctx.arc(nodes[i].x, nodes[i].y, nodes[i].r, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba(255,199,25,0.4)';
+      ctx.fill();
+      nodes[i].x += nodes[i].vx;
+      nodes[i].y += nodes[i].vy;
+      if (nodes[i].x < 0 || nodes[i].x > canvas.width) nodes[i].vx *= -1;
+      if (nodes[i].y < 0 || nodes[i].y > canvas.height) nodes[i].vy *= -1;
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script>
+</body>
+</html>
