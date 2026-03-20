@@ -13,7 +13,7 @@ Een geanimeerde, interactieve cybersecurity-poster gebouwd in puur HTML, CSS en 
 
 ## Voorbeeld
 
-> Live demo: [jouw-link-hier]
+> Live demo: [Bekijk de posters](https://bulutcnr.github.io/---poster-slogan)
 
 ## Gebruik
 
